@@ -68,16 +68,16 @@ class CreditCardValidator
 {
     public static function validate($cardNumber)
     {
-        // Удаляем все нецифровые символы из номера карты
+        // Шаг 1: Удаляем все нецифровые символы из номера карты
         $cardNumber = preg_replace('/\D/', '', $cardNumber);
 
-        // Проверяем, что длина номера карты соответствует стандарту ISO/IEC 7812
+        // Шаг 2: Проверяем, что длина номера карты соответствует стандарту ISO/IEC 7812
         $cardLength = strlen($cardNumber);
         if ($cardLength < 13 || $cardLength > 19) {
             return false;
         }
 
-        // Проверяем, что номер карты проходит алгоритм Луна
+        // Шаг 3: Проверяем, что номер карты проходит алгоритм Луна
         $sum = 0;
         for ($i = $cardLength - 1; $i >= 0; $i--) {
             $digit = (int) $cardNumber[$i];
@@ -93,7 +93,7 @@ class CreditCardValidator
             return false;
         }
 
-        // Определяем эмитенту карты по префиксу
+        // Шаг 4: Определяем эмитенту карты по префиксу
         $prefix = substr($cardNumber, 0, 2);
         if (in_array($prefix, range(51, 55)) || $prefix == 62 || $prefix == 67) {
             return 'MasterCard';
@@ -102,16 +102,16 @@ class CreditCardValidator
             return 'VISA';
         }
 
-        // Если эмитент карты не распознан, возвращаем false
+        // Шаг 5: Если эмитент карты не распознан, возвращаем false
         return false;
     }
 }
 
-// Читаем номер карты из консоли
+// Шаг 6: Читаем номер карты из консоли
 echo 'Введите номер кредитной карты: ';
 $cardNumber = trim(fgets(STDIN));
 
-// Проверяем номер карты
+// Шаг 7: Проверяем номер карты
 $issuer = CreditCardValidator::validate($cardNumber);
 if ($issuer) {
     echo "Действительная карта $issuer\n";
