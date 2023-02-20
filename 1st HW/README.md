@@ -19,7 +19,7 @@ $card_number = preg_replace('/\D/', '', $card_number);
 // Шаг 3: Сравнить номер карты с регулярными выражениями, чтобы определить выпустившую банковскую организацию
 if (preg_match('/^5[1-5]\d{14}$|^62\d{14}$|^67\d{14}$/', $card_number)) {
     $card_issuer = "Mastercard";
-} elseif (preg_match('/^4[1-9]\d{12,18}$|^14\d{12,18}$/', $card_number)) {
+} elseif (preg_match('/^4[0-9]\d{12,18}$|^14\d{12,18}$/', $card_number)) {
     $card_issuer = "Visa";
 } else {
     $card_issuer = "Unknown";
@@ -98,7 +98,7 @@ class CreditCardValidator
         if (in_array($prefix, range(51, 55)) || $prefix == 62 || $prefix == 67) {
             return 'MasterCard';
         }
-        if (in_array($prefix, range(41, 49)) || $prefix == 14) {
+        if (in_array($prefix, range(40, 49)) || $prefix == 14) {
             return 'VISA';
         }
 
