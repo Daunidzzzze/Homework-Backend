@@ -33,7 +33,7 @@ class CreditCardValidator
         if (in_array($prefix, range(51, 55)) || $prefix == 62 || $prefix == 67) {
             return 'MasterCard';
         }
-        if (in_array($prefix, range(41, 49)) || $prefix == 14) {
+        if (in_array($prefix, range(40, 49)) || $prefix == 14) {
             return 'VISA';
         }
 
